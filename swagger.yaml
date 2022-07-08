@@ -1,0 +1,100 @@
+openapi: 3.0.2
+info:
+  version: '1.0'
+  title: STD21020
+  description: |
+    Hello world !
+servers:
+  - url: 'https://std21020.com'
+
+paths:
+  '/students':
+    get:
+      tags:
+        - Students
+      summary: Get all students
+      description: Get all students with some details about them
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: page_size
+          in: query
+          required: true
+          schema:
+            type: integer
+      operationId: students
+      responses:
+        '200':
+          description: List of all students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateStudent'
+        '400':
+          description: Bad request
+    post:
+      tags:
+        - Students
+      summary: Create new student
+      description: Create new student from an array
+      requestBody:
+        description: Students to be created
+        required: true
+        content:
+          application/json:
+           schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Students'
+      responses:
+        '200':
+          description: List of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateStudent'
+        '400':
+          description: Bad request
+  '/Courses':
+    get:
+      tags:
+        - Courses
+      summary: Get all courses
+      responses:
+        '200':
+          description: List of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Courses'
+  
+components:
+  schemas:
+    CreateStudent:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Students:
+      type: object
+      properties:
+        name:
+          type: string
+    Courses:
+      type: object
+      properties:
+        id:
+          type: integer
+        cours_name:
+          type: string
