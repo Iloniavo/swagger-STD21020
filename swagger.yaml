@@ -62,20 +62,7 @@ paths:
                   $ref: '#/components/schemas/CreateStudent'
         '400':
           description: Bad request
-  '/Courses':
-    get:
-      tags:
-        - Courses
-      summary: Get all courses
-      responses:
-        '200':
-          description: List of students
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Courses'
+  
   
 components:
   schemas:
@@ -91,10 +78,4 @@ components:
       properties:
         name:
           type: string
-    Courses:
-      type: object
-      properties:
-        id:
-          type: integer
-        cours_name:
-          type: string
+    
