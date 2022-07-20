@@ -75,7 +75,7 @@ paths:
                 $ref: '#/components/schemas/Student'
         400: 
           description : Bad request
-      
+    
  /students/{id}: 
     get:
       tags:
@@ -119,7 +119,46 @@ paths:
           description : Bad request
         404 : 
           description : Entity not found
+    patch:
+      tags :
+       - Students
+      summary : Update the information of the students
+      description: update the information
+      requestBody:
+       description : Student updated 
+       content : 
+        application/json :
+          schema :
+             $ref: '#/components/schemas/Student'
+          examples:
+            changeName:
+              summary: Change name
+              description: Change name
+              value:
+                id: 12
+                name: "Rakoto"
+            
+            changePhoneNumber:
+              summary: change phone number
+              description: change phone number
+              value:
+                id: 11
+                phone_number: [{"country_code" : "+264" , "number" : "852852852"}, {"country_code" : "+265" , "number" : "65465454"}]
+            changeAddress:
+              summary: change address
+              description: change address
+              value:
+                id: 5
+                address: "Analam"
+      responses:
+        200 :
+          description: OK
+        400 : 
+          description: Bad request
+        404 :
+          description: Id not found
 
+                
  /courses:
   get:
     tags:
@@ -216,6 +255,22 @@ components:
           type: string
           format: date
           example: "2022-01-01"
+        phone_number:
+          type: array
+          items:
+             $ref: '#/components/schemas/PhoneNumber'  
+        address: 
+          type: string
+          example: "Ivandry"
+    PhoneNumber:  
+          type: object
+          properties: 
+            country_code : 
+              type: string
+              example: "+261"
+            number: 
+              type: string
+              example: "34 80 456 62"
     Student:
       allOf:
         - $ref: '#/components/schemas/CreateStudent'
