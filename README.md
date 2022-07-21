@@ -3,3 +3,5 @@
 TD0 : [https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Iloniavo/swagger-STD21020/main/swagger.yaml](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Iloniavo/swagger-STD21020/main/swagger.yaml)
 
 TD1 : [https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Iloniavo/swagger-STD21020/main/TD1.yaml](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Iloniavo/swagger-STD21020/main/TD1.yaml)
+
+TD cinema: [https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Iloniavo/swagger-STD21020/main/cinema.yaml](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Iloniavo/swagger-STD21020/main/cinema.yaml)
