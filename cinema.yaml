@@ -33,90 +33,7 @@ paths:
                   $ref: '#/components/schemas/Room'
         400:
           description: Bad request
-    post: 
-      tags:
-        - Room
-      operationId: add room
-      summary: Add a new room
-      description: Add a new room
-      requestBody:
-        description: room to be added
-        content:
-          application/json:
-            schema:  
-              $ref: '#/components/schemas/CreateRoom'
-        required: true
-      responses:
-        201:
-          description: Room added
-          content:
-            application/json:
-              schema: 
-                type: array
-                items:
-                  $ref : '#/components/schemas/Room'
-        400:
-          description: Bad request
-    put:
-      tags:
-        - Room
-      summary: Change all room's information
-      description: Change all room's information
-      requestBody: 
-        description: Informations changed 
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Room'
-      responses:
-        202: 
-          description: Informations changed
-        400: 
-          description: Bad request
-        404:
-          description: Room not found
-    patch:
-      tags:
-        - Room
-      summary: Change room's information
-      description: Change room's information
-      requestBody: 
-        description: Change information
-        content :
-           application/json:
-            schema: 
-                $ref: '#/components/schemas/Room'
-            examples:
-              changeCapacity:
-                summary: change capacity
-                description: change capacity 
-                value: 
-                  capacity: 250
-                  id: 3
-      responses:
-        202:
-          description: Information(s) changed
-        400: 
-          description: Bad request
-        404:
-          description: Movie not found
-    delete:
-      tags:
-        - Room
-      summary : Delete room(s)
-      description: delete room(s)
-      parameters:
-        - name: id
-          in: query
-          schema: 
-            type: array
-      responses:
-        200:
-          description: delete succesfully
-        400:
-          description: Bad request
-        404: 
-          description: Movie(s) not found
+    
   /room/{id}:
     get:
       tags:
@@ -142,24 +59,7 @@ paths:
           description: Bad request
         404: 
           description: Room not found
-    delete:
-      tags:
-        - Room
-      summary: delete a room
-      description: delete a room by id
-      parameters:
-        - name: Id
-          in: path
-          schema: 
-            type: integer
-          required: true
-      responses:
-        200:
-          description: delete succesfully
-        400:
-          description: bad request
-        404:
-          description: room not found    
+    
   /movie:
     get:
       tags:
@@ -328,6 +228,57 @@ paths:
           description : Bad request
         404 : 
           description : Entity not found
+  /movie/category:
+    get: 
+      tags:
+        - Movie
+      summary: get all movies's categories
+      description: get all movies's categories
+      parameters:
+        - name: id_category
+          in : query
+          schema:
+            type: integer 
+        - name: label
+          in : query
+          schema:
+            type: string  
+      responses:
+        200: 
+          description: All categories here
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categories'
+        400: 
+          description: Bad request 
+  /movie/{category_label}:
+    get: 
+      tags:
+        - Movie 
+      summary: get all movies in a category
+      description: get all movies in a category 
+      parameters:
+        - name: category_label
+          in: path
+          schema: 
+            type: string
+          required: true 
+      responses:
+        200: 
+          description: Here's your movies
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Movie'
+        400: 
+          description: Bad request
+        404: 
+          description: Category not found
   /broadcast:
     get:
       tags:
@@ -446,25 +397,23 @@ paths:
           description: Broadcast(s) not found
 components:
   schemas:
-    CreateRoom:
-      type: integer
-      properties:
-        capacity:
-          type: integer
     Room:
-      allOf:
-        - $ref: '#/components/schemas/CreateRoom'
       type: object
       properties:
         id:
           type: integer
           example: 1
+        capacity:
+          type: integer
     AddMovie: 
       type: object
       properties:
         title:
           type: string
           example: Jumanji
+        category: 
+          type: string
+          example: romance
         duration:
           type: string
           format: time
@@ -507,6 +456,23 @@ components:
       properties:
         id_braodcast:
           type: integer
+    Category:
+      type: object
+      properties:
+        id: 
+          type: integer
+       
+    Categories: 
+      allOf:
+        - $ref: '#/components/schemas/Category'
+      properties:
+        movies: 
+          type: array 
+          items: 
+             $ref: '#/components/schemas/Movie' 
           
+            
+        
+    
       
             
