@@ -251,7 +251,7 @@ paths:
               schema: 
                 type: array
                 items:
-                  $ref: '#/components/schemas/Categories'
+                  $ref: '#/components/schemas/Category'
         400: 
           description: Bad request 
   /movie/{category_label}:
@@ -279,6 +279,7 @@ paths:
           description: Bad request
         404: 
           description: Category not found
+  
   /broadcast:
     get:
       tags:
@@ -395,6 +396,30 @@ paths:
           description: Bad request
         404: 
           description: Broadcast(s) not found
+  /broadcasting/{date}:
+    get: 
+      tags: 
+      - Broadcast
+      summary: Get all broadcasting in a week
+      description: Get all broadcasting in a week
+      parameters:
+        - name: date
+          in : path
+          schema: 
+            type: string 
+            format: date
+          required: true
+      responses:
+        200: 
+          description: Here all braodcasting
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Calendar'
+        400: 
+          description: Bad request
 components:
   schemas:
     Room:
@@ -449,7 +474,7 @@ components:
             - $ref: '#/components/schemas/Room'
         broadcast_time:
           type: string
-          format: hour:min   
+          format: date- time     
     Broadcasting:
       allOf:
         - $ref: '#/components/schemas/CreateBroadcast'
@@ -461,15 +486,14 @@ components:
       properties:
         id: 
           type: integer
-       
-    Categories: 
-      allOf:
-        - $ref: '#/components/schemas/Category'
-      properties:
-        movies: 
-          type: array 
-          items: 
-             $ref: '#/components/schemas/Movie' 
+        label: 
+          type: string
+    Calendar: 
+      oneOf:
+        - $ref: '#/components/schemas/Broadcasting'   
+        - $ref: '#/components/schemas/Broadcasting'   
+        - $ref: '#/components/schemas/Broadcasting'   
+  
           
             
         
